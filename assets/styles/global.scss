@@ -1,0 +1,20 @@
+// assets/css/global.scss
+
+// customize some Bootstrap variables
+//$primary: darken(#428bca, 20%);
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1310px
+) !default;
+
+$theme-colors: (
+       // "primary": #0a333e,
+  //"danger": #aaaaaa,
+  // "success": #6899EE
+);
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
