@@ -10,18 +10,33 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_PROFESSEUR
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            anonymous: lazy
+            pattern: ^/lms-admin.php/*
+            guard:
+                authenticators:
+                    - App\Security\AdminAuthenticator
+            logout:
+                path: app_admin_logout
+                target: /lms-admin.php/login
         main:
             anonymous: lazy
             provider: app_user_provider
             guard:
                 authenticators:
                     - App\Security\UserAuthenticator
+                entry_point: App\Security\UserAuthenticator
             logout:
                 path: app_logout
+                target: /login
+            access_denied_url: /login
                 # where to redirect after logout
                 # target: app_any_route
 

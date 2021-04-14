@@ -40,9 +40,10 @@ class UserFixtures extends Fixture
     private function getData()
     {
         return [
-            ['monique@exempleLMS.com',  ['ROLE_ETUDIANT'], 'monique'],
+            ['superadmin@exempleLMS.com',  ['ROLE_SUPER_ADMIN'], 'superadmin'],
+            ['admin@exempleLMS.com',  ['ROLE_ADMIN'], 'admin'],
             ['gerard@exempleLMS.com',  ['ROLE_ETUDIANT'], 'gerard'],
-            ['admin@exempleLMS.com',  ['ROLE_PROFESSEUR'], 'admin'],
+            ['prof@exempleLMS.com',  ['ROLE_PROFESSEUR'], 'prof'],
         ];
     }
 }
