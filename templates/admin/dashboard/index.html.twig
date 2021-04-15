@@ -1,18 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
 {% block title %}Gestion des abonnés{% endblock %}
 
-{% block body %}
-    <div id="wrapper">
-
-        <!-- navbar -->
-        {% include 'admin/layout/sidebar.html.twig' %}
-        <!-- End of navbar -->
-        <!-- Topbar -->
-        {% include 'admin/layout/navbar.html.twig' %}
-        <!-- End of Topbar -->
-        <!-- content -->
-        <div class="container-fluid">
+{% block content %}
+    <div class="container-fluid">
 
             <!-- Page Heading -->
             <h1 class="h3 mb-2 text-gray-800">DASHBOARD</h1>
@@ -73,12 +64,6 @@
             </div>
 
         </div>
-        <!-- Footer -->
-        {% include 'admin/layout/footer.html.twig' %}
-
-        <!-- End of Footer -->
-        <!-- End of Content Wrapper -->
-    </div>
 {% endblock %}
 
 {% block javascripts %}
