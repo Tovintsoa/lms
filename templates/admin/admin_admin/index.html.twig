@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Liste Proffesseur</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Liste Administrateur</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -28,22 +28,22 @@
                         </thead>
                         <tbody>
                         {% for user in users %}
-                            <tr>
-                                <td>{{ user.id }}</td>
-                                <td class="nowrap">{{ user.email }}</td>
-                                <td>{{ user.nom }}</td>
-                                <td>{{ user.prenom }}</td>
-                                <td>{{ user.login }}</td>
-                                <td class="nowrap">{{ user.telephone }}</td>
-                                <td>{{ user.adresse }}</td>
-                                <td>{{ user.ville }}</td>
-                                <td>{{ user.pays }}</td>
-                                <td class="nowrap">{{ user.dateDeNaissance ? user.dateDeNaissance|date('Y-m-d') : '' }}</td>
-                                <td class="nowrap">
-                                    <a class="btn btn-primary show-user" data-user="{{ user.id }}" data-origin="prof" {#href="{{ path('admin_prof_show', {'id': user.id}) }}"#}>show</a>
-                                    <a  class="btn btn-success" href="{{ path('admin_prof_edit', {'user': user.id}) }}">edit</a>
-                                    <a  class="btn btn-danger delete-user" data-user ="{{ user.id }}" data-origin="prof">Effacer</a>
-                                </td>
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td class="nowrap">{{ user.email }}</td>
+                            <td>{{ user.nom }}</td>
+                            <td>{{ user.prenom }}</td>
+                            <td>{{ user.login }}</td>
+                            <td class="nowrap">{{ user.telephone }}</td>
+                            <td>{{ user.adresse }}</td>
+                            <td>{{ user.ville }}</td>
+                            <td>{{ user.pays }}</td>
+                            <td class="nowrap">{{ user.dateDeNaissance ? user.dateDeNaissance|date('Y-m-d') : '' }}</td>
+                            <td class="nowrap">
+                                <a class="btn btn-primary show-user" data-user ="{{ user.id }}" data-origin="admin" {#href="{{ path('admin_user_show', {'id': user.id}) }}"#}>show</a>
+                                <a  class="btn btn-success "  href="{{ path('admin_admin_edit', {'user': user.id}) }}">edit</a>
+                                <a  class="btn btn-danger delete-user" data-user ="{{ user.id }}" data-origin="admin">Effacer</a>
+                            </td>
                             </tr>
                         {% else %}
                             <tr>

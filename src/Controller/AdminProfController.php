@@ -21,8 +21,10 @@ class AdminProfController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
+        $form = $this->createForm(UserType::class, new User());
         return $this->render('admin/admin_prof/index.html.twig', [
             'users' => $userRepository->findByRoles('ROLE_PROFESSEUR'),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -49,7 +51,33 @@ class AdminProfController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_prof_show", methods={"GET"})
+     * @Route("/{user}/edit", name="admin_prof_edit",options={"expose"=true} )
+     * @param User $user
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(User $user,Request $request,UserManager $userManager){
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('admin_prof_index');
+        }
+
+        return $this->render('admin/admin_admin/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/{user}", name="admin_prof_show", methods={"GET"},options={"expose"=true})
+     * @param User $user
+     * @return Response
      */
     public function show(User $user): Response
     {
@@ -57,38 +85,18 @@ class AdminProfController extends AbstractController
             'user' => $user,
         ]);
     }
-
     /**
-     * @Route("/{id}/edit", name="admin_prof_edit", methods={"GET","POST"})
+     * @Route("/delete/{user}", name="admin_prof_delete",options={"expose"=true})
      */
-    public function edit(Request $request, User $user): Response
+    public function delete( User $user):Response
     {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_prof_index');
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
 
-        return $this->render('admin/admin_prof/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('admin_user_list');
     }
 
-    /**
-     * @Route("/{id}", name="admin_prof_delete", methods={"POST"})
-     */
-    public function delete(Request $request, User $user): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('admin_prof_index');
-    }
 }

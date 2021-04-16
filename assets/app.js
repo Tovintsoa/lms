@@ -15,6 +15,7 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+global.axios = require('axios');
 (function($) {
     "use strict"; // Start of use strict
 

@@ -1,11 +1,27 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
 {% block title %}New User{% endblock %}
 
-{% block body %}
-    <h1>Create new User</h1>
+{% block content %}
 
-    {{ include('admin/admin_etudiant/_form.html.twig') }}
 
-    <a href="{{ path('admin_etudiant_index') }}">back to list</a>
+    <div class="container mt-5 pt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h1 class="h3 mb-2 text-gray-800">Create new Etudiant</h1>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="form-row">
+                            {{ include('admin/layout/_form_user.html.twig') }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 {% endblock %}

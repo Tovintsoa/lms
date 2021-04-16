@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Manager\UserManager;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,24 +21,25 @@ class AdminEtudiantController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
+        $form = $this->createForm(UserType::class, new User());
         return $this->render('admin/admin_etudiant/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $userRepository->findByRoles("ROLE_ETUDIANT"),
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/new_etudiant", name="admin_etudiant_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,UserManager $userManager): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $userManager->create($user,$form->get('password')->getData(),"ROLE_ETUDIANT");
+            $userManager->save($user);
 
             return $this->redirectToRoute('admin_etudiant_index');
         }
@@ -49,24 +51,17 @@ class AdminEtudiantController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_etudiant_show", methods={"GET"})
+     * @Route("/{user}/edit", name="admin_etudiant_edit",options={"expose"=true} )
+     * @param User $user
+     * @param Request $request
+     * @return Response
      */
-    public function show(User $user): Response
-    {
-        return $this->render('admin/admin_etudiant/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="admin_etudiant_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, User $user): Response
-    {
+    public function edit(User $user,Request $request,UserManager $userManager){
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_etudiant_index');
@@ -78,17 +73,31 @@ class AdminEtudiantController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="admin_etudiant_delete", methods={"POST"})
-     */
-    public function delete(Request $request, User $user): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('admin_etudiant_index');
+    /**
+     * @Route("/{user}", name="admin_etudiant_show", methods={"GET"},options={"expose"=true})
+     * @param User $user
+     * @return Response
+     */
+    public function show(User $user): Response
+    {
+        return $this->render('admin/admin_etudiant/show.html.twig', [
+            'user' => $user,
+        ]);
     }
+
+    /**
+     * @Route("/delete/{user}", name="admin_etudiant_delete",options={"expose"=true})
+     */
+    public function delete( User $user):Response
+    {
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_user_list');
+    }
+
 }
