@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mention{% endblock %}
+
+{% block body %}
+    <h1>Mention</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ mention.id }}</td>
+            </tr>
+            <tr>
+                <th>NomMention</th>
+                <td>{{ mention.nomMention }}</td>
+            </tr>
+            <tr>
+                <th>CodeMention</th>
+                <td>{{ mention.codeMention }}</td>
+            </tr>
+            <tr>
+                <th>DescriptionMention</th>
+                <td>{{ mention.descriptionMention }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_mention_index') }}">back to list</a>
+
+    <a href="{{ path('admin_mention_edit', {'id': mention.id}) }}">edit</a>
+
+    {{ include('admin/admin_mention/_delete_form.html.twig') }}
+{% endblock %}
