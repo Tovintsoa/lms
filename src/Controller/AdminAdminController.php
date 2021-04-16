@@ -85,7 +85,7 @@ class AdminAdminController extends AbstractController
 
 
     /**
-     * @Route("/{user}", name="admin_show", methods={"GET"},options={"expose"=true})
+     * @Route("/{user}", name="admin_show", methods={"GET"},options={"expose"=true},requirements={"user":"\d+"})
      * @param User $user
      * @return Response
      */
@@ -101,7 +101,7 @@ class AdminAdminController extends AbstractController
      */
     public function delete( User $user):Response
     {
-
+        /*dd("aaa");*/
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($user);
