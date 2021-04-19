@@ -1,0 +1,20 @@
+{#{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}#}
+
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mt-4 ">
+            {{ form_row(form.nomMention) }}
+    </div>
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mt-4 ">
+            {{ form_row(form.codeMention) }}
+    </div>
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mt-4 ">
+            {{ form_row(form.descriptionMention) }}
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-4  text-right">
+        <button class="btn btn-primary">Enregistrer</button>
+        <a class="btn btn-secondary mx-1" href="javascript: history.back();" >
+            Annuler
+        </a>
+    </div>

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -73,6 +75,16 @@ class User implements UserInterface
      * @ORM\Column(type="date", nullable=true)
      */
     private $dateDeNaissance;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Matiere::class, mappedBy="professeur")
+     */
+    private $matieres;
+
+    public function __construct()
+    {
+        $this->matieres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -247,6 +259,36 @@ class User implements UserInterface
     public function setDateDeNaissance(?\DateTimeInterface $dateDeNaissance): self
     {
         $this->dateDeNaissance = $dateDeNaissance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Matiere[]
+     */
+    public function getMatieres(): Collection
+    {
+        return $this->matieres;
+    }
+
+    public function addMatiere(Matiere $matiere): self
+    {
+        if (!$this->matieres->contains($matiere)) {
+            $this->matieres[] = $matiere;
+            $matiere->setProfesseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatiere(Matiere $matiere): self
+    {
+        if ($this->matieres->removeElement($matiere)) {
+            // set the owning side to null (unless already changed)
+            if ($matiere->getProfesseur() === $this) {
+                $matiere->setProfesseur(null);
+            }
+        }
 
         return $this;
     }

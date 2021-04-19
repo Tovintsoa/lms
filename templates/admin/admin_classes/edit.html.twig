@@ -1,29 +1,21 @@
 
 {% extends 'base-admin.html.twig' %}
-
 {% block title %}New User{% endblock %}
-
 {% block content %}
     <div class="container mt-5 pt-4">
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h1 class="h3 mb-2 text-gray-800">Create new User</h1>
+                        <h1 class="h3 mb-2 text-gray-800">Modifier une classe</h1>
                     </div>
                     <div class="card-body">
-                        {{ form_start(form) }}
-                        <div class="form-row">
-                            {{ include('admin/layout/_form_user.html.twig', {'button_label': 'Update'}) }}
-                        </div>
-                        {{ form_end(form) }}
+                        {{ include('admin/layout/_form_classes.html.twig') }}
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 {% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-{% endblock %}
+
+

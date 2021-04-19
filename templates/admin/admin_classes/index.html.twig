@@ -1,0 +1,92 @@
+{#
+{% extends 'base.html.twig' %}
+
+{% block title %}Classes index{% endblock %}
+
+{% block body %}
+    <h1>Classes index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomClasse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for class in classes %}
+            <tr>
+                <td>{{ class.id }}</td>
+                <td>{{ class.nomClasse }}</td>
+                <td>
+                    <a href="{{ path('admin_classes_show', {'id': class.id}) }}">show</a>
+                    <a href="{{ path('admin_classes_edit', {'id': class.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_classes_new') }}">Create new</a>
+{% endblock %}
+#}
+
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Liste Etudiant</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="text-right mb-4">
+                        <a href="{{ path('admin_classes_new') }}" class="btn btn-primary">Créer une classe</a>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                          {#  <th>Id</th>#}
+                            <th>Nom de la Classe</th>
+                            <th>Filière</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for class in classes %}
+                            <tr>
+                               {# <td>{{ class.id }}</td>#}
+                                <td>{{ class.nomClasse }}</td>
+                                <td>{{ class.mention.nomMention }}</td>
+                                <td class="text-center">
+                                    {#<a href="{{ path('admin_classes_show', {'id': class.id}) }}" class="btn ">Voir</a>#}
+                                    <a href="{{ path('admin_classes_edit', {'id': class.id}) }}" class="btn btn-primary text-white">Modifier</a>
+                                    <a  class="btn btn-danger btn-delete text-white" data-id="{{ class.id }}">Effacer </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include("admin/layout/_modal_delete.html.twig") }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app_admin') }}
+    {{ encore_entry_script_tags('app_admin_classes') }}
+{% endblock %}

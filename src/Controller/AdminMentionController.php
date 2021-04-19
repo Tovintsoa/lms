@@ -11,22 +11,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/mention")
+ * @Route("lms-admin.php/admin/mention",name="admin_")
  */
 class AdminMentionController extends AbstractController
 {
+    const _DIRECTORY = 'admin/';
     /**
-     * @Route("/", name="admin_mention_index", methods={"GET"})
+     * @Route("/", name="mention_index", methods={"GET"})
      */
     public function index(MentionRepository $mentionRepository): Response
     {
-        return $this->render('admin_mention/index.html.twig', [
+        return $this->render(self::_DIRECTORY.'admin_mention/index.html.twig', [
             'mentions' => $mentionRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="admin_mention_new", methods={"GET","POST"})
+     * @Route("/new", name="mention_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -42,24 +43,24 @@ class AdminMentionController extends AbstractController
             return $this->redirectToRoute('admin_mention_index');
         }
 
-        return $this->render('admin_mention/new.html.twig', [
+        return $this->render(self::_DIRECTORY.'admin_mention/new.html.twig', [
             'mention' => $mention,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="admin_mention_show", methods={"GET"})
+     * @Route("/{mention}", name="mention_show", methods={"GET"},options={"expose"=true},requirements={"user":"\d+"})
      */
     public function show(Mention $mention): Response
     {
-        return $this->render('admin_mention/show.html.twig', [
+        return $this->render(self::_DIRECTORY.'admin_mention/show.html.twig', [
             'mention' => $mention,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_mention_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="mention_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Mention $mention): Response
     {
@@ -72,23 +73,20 @@ class AdminMentionController extends AbstractController
             return $this->redirectToRoute('admin_mention_index');
         }
 
-        return $this->render('admin_mention/edit.html.twig', [
+        return $this->render(self::_DIRECTORY.'admin_mention/edit.html.twig', [
             'mention' => $mention,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="admin_mention_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="mention_delete",options={"expose"=true})
      */
-    public function delete(Request $request, Mention $mention): Response
+    public function delete(Mention $id): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$mention->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($mention);
+            $entityManager->remove($id);
             $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('admin_mention_index');
+            return $this->redirectToRoute('admin_mention_index');
     }
 }

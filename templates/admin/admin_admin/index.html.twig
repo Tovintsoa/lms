@@ -40,9 +40,9 @@
                             <td>{{ user.pays }}</td>
                             <td class="nowrap">{{ user.dateDeNaissance ? user.dateDeNaissance|date('Y-m-d') : '' }}</td>
                             <td class="nowrap">
-                                <a class="btn btn-primary show-user" data-user ="{{ user.id }}" data-origin="admin" {#href="{{ path('admin_user_show', {'id': user.id}) }}"#}>show</a>
-                                <a  class="btn btn-success "  href="{{ path('admin_admin_edit', {'user': user.id}) }}">edit</a>
-                                <a  class="btn btn-danger delete-user" data-user ="{{ user.id }}" data-origin="admin">Effacer</a>
+                                <a class="btn btn-primary show-user text-white" data-user ="{{ user.id }}" data-origin="admin" {#href="{{ path('admin_user_show', {'id': user.id}) }}"#}>show</a>
+                                <a  class="btn btn-success text-white"  href="{{ path('admin_admin_edit', {'user': user.id}) }}">edit</a>
+                                <a  class="btn btn-danger delete-user text-white" data-user ="{{ user.id }}" data-origin="admin">Effacer</a>
                             </td>
                             </tr>
                         {% else %}

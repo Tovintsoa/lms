@@ -43,3 +43,15 @@ export async function removeUser(userid,modal,origin){
     $(modal).modal("hide");
     window.location.reload();
 }
+
+export function askRemoveGenerique(val,modal){
+    $("#id").val($(val).data("id"));
+    $(modal).modal();
+}
+export async function removeGenerique(modal,id,route){
+    await axios.get(Routing.generate(route,{
+        id: id
+    }));
+    $(modal).modal("hide");
+    window.location.reload();
+}

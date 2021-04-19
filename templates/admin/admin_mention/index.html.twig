@@ -1,39 +1,59 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
-{% block title %}Mention index{% endblock %}
+{% block title %}User index{% endblock %}
 
-{% block body %}
-    <h1>Mention index</h1>
+{% block content %}
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Liste mention</h6>
+            </div>
+            <div class="card-body">
+                <div class="text-right">
+                    <a href="{{ path('admin_mention_new') }}" class="btn btn-primary mb-4">
+                        <span class="mr-1"><i class="fas fa-plus"></i></span>
+                        Ajouter une mention</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>NomMention</th>
+                            <th>CodeMention</th>
+                            <th>DescriptionMention</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for mention in mentions %}
+                            <tr>
+                                <td>{{ mention.id }}</td>
+                                <td>{{ mention.nomMention }}</td>
+                                <td>{{ mention.codeMention }}</td>
+                                <td>{{ mention.descriptionMention }}</td>
+                                <td class="text-center">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomMention</th>
-                <th>CodeMention</th>
-                <th>DescriptionMention</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for mention in mentions %}
-            <tr>
-                <td>{{ mention.id }}</td>
-                <td>{{ mention.nomMention }}</td>
-                <td>{{ mention.codeMention }}</td>
-                <td>{{ mention.descriptionMention }}</td>
-                <td>
-                    <a href="{{ path('admin_mention_show', {'id': mention.id}) }}">show</a>
-                    <a href="{{ path('admin_mention_edit', {'id': mention.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                                    <a href="{{ path('admin_mention_edit', {'id': mention.id}) }}" class="btn btn-primary">Modifier</a>
+                                    <a data-id="{{ mention.id }}" class="btn btn-danger btn-delete text-white">Effacer</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include("admin/layout/_modal_delete.html.twig") }}
 
-    <a href="{{ path('admin_mention_new') }}">Create new</a>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app_admin') }}
+    {{ encore_entry_script_tags('app_admin_mention') }}
 {% endblock %}
