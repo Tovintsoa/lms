@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Edit Matiere</h1>
 
-    {{ include('matiere/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('admin/matiere/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('matiere_index') }}">back to list</a>
 
-    {{ include('matiere/_delete_form.html.twig') }}
+    {{ include('admin/matiere/_delete_form.html.twig') }}
 {% endblock %}

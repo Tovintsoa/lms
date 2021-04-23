@@ -11,16 +11,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/matiere")
+ * @Route("lms-admin.php/matiere")
  */
 class AdminMatiereController extends AbstractController
 {
+    const _DIRECTORY = "admin/";
     /**
-     * @Route("/", name="matiere_index", methods={"GET"})
+     * @Route("/liste", name="matiere_index", methods={"GET"})
      */
     public function index(MatiereRepository $matiereRepository): Response
     {
-        return $this->render('matiere/index.html.twig', [
+        return $this->render(self::_DIRECTORY.'matiere/index.html.twig', [
             'matieres' => $matiereRepository->findAll(),
         ]);
     }
@@ -42,7 +43,7 @@ class AdminMatiereController extends AbstractController
             return $this->redirectToRoute('matiere_index');
         }
 
-        return $this->render('matiere/new.html.twig', [
+        return $this->render(self::_DIRECTORY.'matiere/new.html.twig', [
             'matiere' => $matiere,
             'form' => $form->createView(),
         ]);
@@ -72,7 +73,7 @@ class AdminMatiereController extends AbstractController
             return $this->redirectToRoute('matiere_index');
         }
 
-        return $this->render('matiere/edit.html.twig', [
+        return $this->render(self::_DIRECTORY.'matiere/edit.html.twig', [
             'matiere' => $matiere,
             'form' => $form->createView(),
         ]);
