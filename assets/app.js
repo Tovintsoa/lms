@@ -10,8 +10,10 @@ global.$ = global.jQuery = $;
 require('bootstrap');
 import './styles/global.scss';
 // any CSS you import will output into a single css file (app.css in this case)
-
+require('bootstrap-select');
+import 'bootstrap-select/dist/css/bootstrap-select.min.css'
 import './styles/app.css';
+
 
 // start the Stimulus application
 import './bootstrap';

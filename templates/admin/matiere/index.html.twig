@@ -1,37 +1,76 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}
 
 {% block title %}Matiere index{% endblock %}
 
 {% block body %}
     <h1>Matiere index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomMatiere</th>
-                <th>CodeMatiere</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for matiere in matieres %}
-            <tr>
-                <td>{{ matiere.id }}</td>
-                <td>{{ matiere.nomMatiere }}</td>
-                <td>{{ matiere.codeMatiere }}</td>
-                <td>
-                    <a href="{{ path('matiere_show', {'id': matiere.id}) }}">show</a>
-                    <a href="{{ path('matiere_edit', {'id': matiere.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('matiere_new') }}">Create new</a>
+
+    <a href="{{ path('admin_matiere_new') }}">Create new</a>
+{% endblock %}#}
+
+
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Liste Matière</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="text-right mb-4">
+                        <a href="{{ path('admin_matiere_new') }}" class="btn btn-primary">Créer une matière</a>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>NomMatiere</th>
+                            <th>CodeMatiere</th>
+                            <th>Classe</th>
+                            <th>actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for matiere in matieres %}
+                            <tr>
+                                <td>{{ matiere.id }}</td>
+                                <td>{{ matiere.nomMatiere }}</td>
+                                <td>{{ matiere.codeMatiere }}</td>
+                                <td>
+                                    {% for classe in matiere.classe %}
+                                        {{ classe.nomClasse }}
+                                    {% endfor %}
+                                </td>
+                                <td class="nowrap">
+                                  {#  <a class="btn btn-primary" href="{{ path('admin_matiere_show', {'id': matiere.id}) }}">show</a>#}
+                                    <a class="btn btn-secondary" href="{{ path('admin_matiere_edit', {'id': matiere.id}) }}">Modifier</a>
+                                    <a class="btn btn-danger text-white btn-delete"  data-id="{{ matiere.id }}"{#href="{{ path('admin_matiere_edit', {'id': matiere.id}) }}"#}>Effacer</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include("admin/layout/_modal_delete.html.twig") }}
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app_admin') }}
+    {{ encore_entry_script_tags('app_admin_matiere') }}
+   {# {{ encore_entry_script_tags('app_admin') }}
+    {{ encore_entry_script_tags('app_admin_classes') }}#}
+{% endblock %}
+

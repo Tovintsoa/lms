@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("lms-admin.php/matiere")
+ * @Route("lms-admin.php/matiere",name="admin_")
  */
 class AdminMatiereController extends AbstractController
 {
@@ -40,7 +40,7 @@ class AdminMatiereController extends AbstractController
             $entityManager->persist($matiere);
             $entityManager->flush();
 
-            return $this->redirectToRoute('matiere_index');
+            return $this->redirectToRoute('admin_matiere_index');
         }
 
         return $this->render(self::_DIRECTORY.'matiere/new.html.twig', [
@@ -70,7 +70,7 @@ class AdminMatiereController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('matiere_index');
+            return $this->redirectToRoute('admin_matiere_index');
         }
 
         return $this->render(self::_DIRECTORY.'matiere/edit.html.twig', [
@@ -80,16 +80,16 @@ class AdminMatiereController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="matiere_delete", methods={"POST"})
+     * @Route("/effacer/{id}", name="matiere_delete", options={"expose"=true})
      */
-    public function delete(Request $request, Matiere $matiere): Response
+    public function delete(Request $request, Matiere $id): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$matiere->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($matiere);
-            $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('matiere_index');
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($id);
+            $entityManager->flush();
+
+
+        return $this->redirectToRoute('admin_matiere_index');
     }
 }

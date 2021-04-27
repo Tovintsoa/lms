@@ -1,3 +1,4 @@
+{#
 {% extends 'base.html.twig' %}
 
 {% block title %}New Matiere{% endblock %}
@@ -7,5 +8,51 @@
 
     {{ include('admin/matiere/_form.html.twig') }}
 
-    <a href="{{ path('matiere_index') }}">back to list</a>
+    <a href="{{ path('admin_matiere_index') }}">back to list</a>
+{% endblock %}
+#}
+
+
+
+{#{% extends 'base.html.twig' %}
+
+{% block title %}New Classes{% endblock %}
+
+{% block body %}
+    <h1>Create new Classes</h1>
+
+    {{ include('admin/admin_classes/_form.html.twig') }}
+
+    <a href="{{ path('admin_classes_index') }}">back to list</a>
+{% endblock %}#}
+
+
+
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block content %}
+
+
+    <div class="container mt-5 pt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h1 class="h3 mb-2 text-gray-800">Créer une matière</h1>
+                    </div>
+                    <div class="card-body">
+                        {{ include('admin/layout/_form_matiere.html.twig') }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app_form') }}
 {% endblock %}

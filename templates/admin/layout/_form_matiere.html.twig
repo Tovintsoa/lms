@@ -1,0 +1,23 @@
+{#{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}#}
+
+{{ form_start(form) }}
+<div class="form-row">
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mt-4 ">
+        {{ form_row(form.nomMatiere) }}
+    </div>
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mt-4 ">
+        {{ form_row(form.codeMatiere) }}
+    </div>
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mt-4 ">
+        {{ form_row(form.classe) }}
+    </div>
+    <div class="col-12 text-right">
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        <a href="{{ path('admin_matiere_index') }}" class="btn btn-secondary">Annuler</a>
+    </div>
+</div>
+{{ form_end(form) }}
+

@@ -81,9 +81,16 @@ class User implements UserInterface
      */
     private $matieres;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Settings::class, mappedBy="user")
+     */
+    private $settings;
+
+
     public function __construct()
     {
         $this->matieres = new ArrayCollection();
+        $this->settings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -292,4 +299,35 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Settings[]
+     */
+    public function getSettings(): Collection
+    {
+        return $this->settings;
+    }
+
+    public function addSetting(Settings $setting): self
+    {
+        if (!$this->settings->contains($setting)) {
+            $this->settings[] = $setting;
+            $setting->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSetting(Settings $setting): self
+    {
+        if ($this->settings->removeElement($setting)) {
+            // set the owning side to null (unless already changed)
+            if ($setting->getUser() === $this) {
+                $setting->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
