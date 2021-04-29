@@ -11,7 +11,7 @@ $(document).ready(function(){
     });
     $(document).on("click",btn_delete_user,async function (event) {
         let origin = $(this).data("origin");
-        await askRemove(this, modal_delete, origin);
+        await askRemoveUser(this, modal_delete, origin);
     });
     $(document).on("click",".confirm-delete",async function() {
         let origin = $("#origin").val();

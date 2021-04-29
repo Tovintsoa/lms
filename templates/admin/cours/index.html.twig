@@ -1,0 +1,55 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Cours index{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste Cours</h6>
+        </div>
+        <div class="card-body">
+            <div class="text-right mb-4">
+                <a href="{{ path('admin_cours_new') }}" class="btn btn-primary ">Create new</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            {#<th>Id</th>#}
+                            <th>TitreCours</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for cour in cours %}
+                        <tr>
+                            {#<td>{{ cour.id }}</td>#}
+                            <td>{{ cour.titreCours }}</td>
+                            <td class="text-center">
+                               {# <a href="{{ path('admin_cours_show', {'id': cour.id}) }}">show</a>#}
+                                <a href="{{ path('admin_cours_edit', {'id': cour.id}) }}" class="btn btn-primary">Modifier</a>
+                                <a data-id="{{ cour.id }}"class="btn btn-danger text-white btn-delete">Suprimer</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    {{ include("admin/layout/_modal_delete.html.twig") }}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app_admin') }}
+    {{ encore_entry_script_tags('app_admin_cours') }}
+    {# {{ encore_entry_script_tags('app_admin') }}
+     {{ encore_entry_script_tags('app_admin_classes') }}#}
+{% endblock %}

@@ -1,0 +1,37 @@
+{#
+{% extends 'base.html.twig' %}
+
+{% block title %}New Cours{% endblock %}
+
+{% block body %}
+    <h1>Create new Cours</h1>
+
+    {{ include('admin/layout/_form_cours.html.twig') }}
+
+    <a href="{{ path('admin_cours_index') }}">back to list</a>
+{% endblock %}
+#}
+
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}New cours{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 pt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h1 class="h3 mb-2 text-gray-800">Create new cours</h1>
+                    </div>
+                    <div class="card-body">
+                        {{ include('admin/layout/_form_cours.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

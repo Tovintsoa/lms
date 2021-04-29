@@ -87,17 +87,18 @@ class AdminEtudiantController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{user}", name="admin_etudiant_delete",options={"expose"=true})
+     * @Route("/delete/{user}", name="admin_etudiant_delete",options={"expose"=true},requirements={"user":"\d+"})
+     * @param User $user
+     * @return Response
      */
     public function delete( User $user):Response
     {
-
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($user);
         $entityManager->flush();
 
-        return $this->redirectToRoute('admin_user_list');
+        return $this->redirectToRoute('admin_etudiant_index');
     }
 
 }

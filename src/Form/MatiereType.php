@@ -32,7 +32,9 @@ class MatiereType extends AbstractType
             ])*/
             ->add('classe',EntityType::class,[
                 'class' => Classes::class,
-                'choice_label' => 'nomClasse',
+                'choice_label' => function($classe){
+                    return $classe->getClasseMention();
+                },
                 'multiple' => true,
             ])
         ;

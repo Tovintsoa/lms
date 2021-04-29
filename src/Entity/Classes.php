@@ -74,6 +74,10 @@ class Classes
 
         return $this;
     }
+    public function getClasseMention(){
+        return $this->getNomClasse() . " - ". $this->getMention()->getNomMention();
+    }
+
 
     /**
      * @return Collection|Matiere[]
@@ -101,6 +105,7 @@ class Classes
 
         return $this;
     }
+
 
     /**
      * @return Collection|Cours[]
