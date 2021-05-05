@@ -55,3 +55,9 @@ export async function removeGenerique(modal,id,route){
     $(modal).modal("hide");
     window.location.reload();
 }
+
+export async function showMatiereByClass() {
+    await axios.get('',{
+
+    });
+}

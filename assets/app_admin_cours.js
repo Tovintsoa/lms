@@ -7,4 +7,5 @@ $(document).ready(function () {
     $(document).on("click",confirm_delete,async function () {
         await removeGenerique(modal,$("#id").val(),"admin_cours_delete");
     });
+
 });

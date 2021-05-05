@@ -75,6 +75,7 @@ class Classes
         return $this;
     }
     public function getClasseMention(){
+
         return $this->getNomClasse() . " - ". $this->getMention()->getNomMention();
     }
 
