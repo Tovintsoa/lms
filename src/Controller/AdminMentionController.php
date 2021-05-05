@@ -16,8 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminMentionController extends AbstractController
 {
     const _DIRECTORY = 'admin/';
+
     /**
      * @Route("/", name="mention_index", methods={"GET"})
+     * @param MentionRepository $mentionRepository
+     * @return Response
      */
     public function index(MentionRepository $mentionRepository): Response
     {
@@ -28,6 +31,8 @@ class AdminMentionController extends AbstractController
 
     /**
      * @Route("/new", name="mention_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -51,6 +56,8 @@ class AdminMentionController extends AbstractController
 
     /**
      * @Route("/{mention}", name="mention_show", methods={"GET"},options={"expose"=true},requirements={"user":"\d+"})
+     * @param Mention $mention
+     * @return Response
      */
     public function show(Mention $mention): Response
     {
@@ -61,6 +68,9 @@ class AdminMentionController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="mention_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Mention $mention
+     * @return Response
      */
     public function edit(Request $request, Mention $mention): Response
     {

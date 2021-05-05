@@ -21,6 +21,9 @@ class AdminAdminController extends AbstractController
 
     /**
      * @Route("/list", name="user_list", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @param Request $request
+     * @return Response
      */
     public function index(UserRepository $userRepository,Request $request): Response
     {
@@ -64,6 +67,7 @@ class AdminAdminController extends AbstractController
      * @Route("/{user}/edit", name="admin_edit",options={"expose"=true} )
      * @param User $user
      * @param Request $request
+     * @param UserManager $userManager
      * @return Response
      */
     public function edit(User $user,Request $request,UserManager $userManager){
@@ -98,6 +102,8 @@ class AdminAdminController extends AbstractController
 
     /**
      * @Route("/delete/{user}", name="admin_delete",options={"expose"=true})
+     * @param User $user
+     * @return Response
      */
     public function delete( User $user):Response
     {

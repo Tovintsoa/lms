@@ -16,8 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminClassesController extends AbstractController
 {
     const _DIRECTORY = 'admin/';
+
     /**
      * @Route("/liste", name="admin_classes_index", methods={"GET"})
+     * @param ClassesRepository $classesRepository
+     * @return Response
      */
     public function index(ClassesRepository $classesRepository): Response
     {
@@ -28,6 +31,8 @@ class AdminClassesController extends AbstractController
 
     /**
      * @Route("/new", name="admin_classes_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -51,6 +56,8 @@ class AdminClassesController extends AbstractController
 
     /**
      * @Route("/{id}", name="admin_classes_show", methods={"GET"})
+     * @param Classes $class
+     * @return Response
      */
     public function show(Classes $class): Response
     {
@@ -61,6 +68,9 @@ class AdminClassesController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="admin_classes_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Classes $class
+     * @return Response
      */
     public function edit(Request $request, Classes $class): Response
     {

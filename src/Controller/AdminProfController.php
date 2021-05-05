@@ -18,6 +18,8 @@ class AdminProfController extends AbstractController
 {
     /**
      * @Route("/liste_prof", name="admin_prof_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -30,6 +32,9 @@ class AdminProfController extends AbstractController
 
     /**
      * @Route("/newProf", name="admin_prof_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param UserManager $userManager
+     * @return Response
      */
     public function new(Request $request,UserManager $userManager): Response
     {
@@ -54,6 +59,7 @@ class AdminProfController extends AbstractController
      * @Route("/{user}/edit", name="admin_prof_edit",options={"expose"=true} )
      * @param User $user
      * @param Request $request
+     * @param UserManager $userManager
      * @return Response
      */
     public function edit(User $user,Request $request,UserManager $userManager){
@@ -85,8 +91,11 @@ class AdminProfController extends AbstractController
             'user' => $user,
         ]);
     }
+
     /**
      * @Route("/delete/{user}", name="admin_prof_delete",options={"expose"=true})
+     * @param User $user
+     * @return Response
      */
     public function delete( User $user):Response
     {

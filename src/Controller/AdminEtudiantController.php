@@ -18,6 +18,8 @@ class AdminEtudiantController extends AbstractController
 {
     /**
      * @Route("/etudian_list", name="admin_etudiant_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -30,6 +32,9 @@ class AdminEtudiantController extends AbstractController
 
     /**
      * @Route("/new_etudiant", name="admin_etudiant_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param UserManager $userManager
+     * @return Response
      */
     public function new(Request $request,UserManager $userManager): Response
     {
@@ -56,7 +61,7 @@ class AdminEtudiantController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function edit(User $user,Request $request,UserManager $userManager){
+    public function edit(User $user, Request $request){
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 

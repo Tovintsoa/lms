@@ -16,8 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminMatiereController extends AbstractController
 {
     const _DIRECTORY = "admin/";
+
     /**
      * @Route("/liste", name="matiere_index", methods={"GET"})
+     * @param MatiereRepository $matiereRepository
+     * @return Response
      */
     public function index(MatiereRepository $matiereRepository): Response
     {
@@ -28,6 +31,8 @@ class AdminMatiereController extends AbstractController
 
     /**
      * @Route("/new", name="matiere_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -51,6 +56,8 @@ class AdminMatiereController extends AbstractController
 
     /**
      * @Route("/{id}", name="matiere_show", methods={"GET"})
+     * @param Matiere $matiere
+     * @return Response
      */
     public function show(Matiere $matiere): Response
     {
@@ -61,6 +68,9 @@ class AdminMatiereController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="matiere_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Matiere $matiere
+     * @return Response
      */
     public function edit(Request $request, Matiere $matiere): Response
     {
@@ -81,6 +91,9 @@ class AdminMatiereController extends AbstractController
 
     /**
      * @Route("/effacer/{id}", name="matiere_delete", options={"expose"=true})
+     * @param Request $request
+     * @param Matiere $id
+     * @return Response
      */
     public function delete(Request $request, Matiere $id): Response
     {
